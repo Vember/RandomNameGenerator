@@ -28,9 +28,22 @@ public class UserInterface {
                 break;
             }
 
-            if (Integer.valueOf(input) == 7) {
+            try {
+                Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input.");
+                continue;
+            }
+
+            if (Integer.valueOf(input) == 7 || Integer.valueOf(input) == 0) {
                 break;
             }
+
+            if (Integer.valueOf(input) > 7) {
+                System.out.println("Invalid input.");
+                continue;
+            }
+
             processCommand(Integer.valueOf(input));
         }
     }
