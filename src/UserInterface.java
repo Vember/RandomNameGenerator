@@ -2,18 +2,11 @@ import java.util.Scanner;
 
 public class UserInterface {
 
-    private NameGenerator name;
-    private Scanner scan;
-
-    public UserInterface(Scanner scan, NameGenerator name) {
-
-        this.name = name;
-        this.scan = scan;
-    }
-
-    public void start() {
+    public static void start() {
 
         while (true) {
+
+            Scanner scan = new Scanner(System.in);
 
             System.out.println("1: Generate Random Name");
             System.out.println("2: Generate For Int Given");
@@ -48,11 +41,13 @@ public class UserInterface {
         }
     }
 
-    public void processCommand(int command) {
+    public static void processCommand(int command) {
 
-        if (Integer.valueOf(command) == 1) {
+        Scanner scan = new Scanner(System.in);
 
-            System.out.println(name.generateName());
+        if (command == 1) {
+
+            System.out.println(NameGenerator.generateName());
 
             while (true) {
 
@@ -69,7 +64,7 @@ public class UserInterface {
 
                 } else if (input.equals("1")) {
 
-                    System.out.println(name.generateName());
+                    System.out.println(NameGenerator.generateName());
 
                 } else {
 
@@ -77,7 +72,7 @@ public class UserInterface {
                 }
             }
 
-        } else if (Integer.valueOf(command) == 2) {
+        } else if (command == 2) {
 
             while (true) {
 
@@ -99,10 +94,10 @@ public class UserInterface {
                     break;
                 }
 
-                System.out.println(name.generateName(Integer.valueOf(input)));
+                System.out.println(NameGenerator.generateName(Integer.valueOf(input)));
             }
 
-        } else if (Integer.valueOf(command) == 3) {
+        } else if (command == 3) {
 
             while (true) {
 
@@ -113,15 +108,15 @@ public class UserInterface {
                     break;
                 }
 
-                if (name.genNameChosenLetter(input) == null) {
+                if (NameGenerator.genNameChosenLetter(input) == null) {
                     System.out.println("Invalid input.");
                     continue;
                 }
 
-                System.out.println(name.genNameChosenLetter(input));
+                System.out.println(NameGenerator.genNameChosenLetter(input));
             }
 
-        } else if (Integer.valueOf(command) == 4) {
+        } else if (command == 4) {
 
             while (true) {
 
@@ -131,10 +126,10 @@ public class UserInterface {
                 if (input.isEmpty()) {
                     break;
                 }
-                name.generateGivenName(input);
+                NameGenerator.generateGivenName(input);
             }
 
-        } else if (Integer.valueOf(command) == 5) {
+        } else if (command == 5) {
 
             while (true) {
 
@@ -174,7 +169,7 @@ public class UserInterface {
                     break;
                 }
 
-                name.generateMultiple(Integer.valueOf(input1), Integer.valueOf(input2));
+                NameGenerator.generateMultiple(Integer.valueOf(input1), Integer.valueOf(input2));
             }
 
         } else {
@@ -199,7 +194,7 @@ public class UserInterface {
                     break;
                 }
 
-                this.name.genUniqueNames(Integer.valueOf(input));
+                NameGenerator.genUniqueNames(Integer.valueOf(input));
             }
         }
     }

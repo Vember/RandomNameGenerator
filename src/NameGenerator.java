@@ -3,15 +3,15 @@ import java.util.Random;
 
 public class NameGenerator {
 
-    private final String[] cons = {"b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"};
-    private final String[] vows = {"a", "e", "i", "o", "u"};
-    private final String[] dCons = {"ck", "bb", "th", "cc", "dd", "ss", "tt", "ll", "rr", "dr", "st", "nd", "gg", "ph", "br", "mb", "ch",
+    private static String[] cons = {"b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"};
+    private static String[] vows = {"a", "e", "i", "o", "u"};
+    private static String[] dCons = {"ck", "bb", "th", "cc", "dd", "ss", "tt", "ll", "rr", "dr", "st", "nd", "gg", "ph", "br", "mb", "ch",
             "pt", "bs", "rv", "pr", "sp", "mp", "ct", "nn", "pp", "cl", "ny", "sh", "nt", "rl", "yl", "sk", "xy", "cy", "sm", "rs", "rg", "rt", "sl"};
-    private final String[] dVows = {"ea", "ae", "ei", "ou", "ee", "oi", "ia", "ai", "oo", "ie", "io", "au", "ue", "oa"};
-    private final String[] tCons = {"ndr"};
-    private final String[] tConsEnds = {"rry", "ryl", "rth"};
-    private final String[] dConsStarts = {"Sl", "Bl", "Ch", "St", "Br", "Tr", "Pl", "Cr", "Cl", "Sk", "Th"};
-    private final String[] tConsStarts = {"Chr", "Thr", "Chl"};
+    private static String[] dVows = {"ea", "ae", "ei", "ou", "ee", "oi", "ia", "ai", "oo", "ie", "io", "au", "ue", "oa"};
+    private static String[] tCons = {"ndr"};
+    private static String[] tConsEnds = {"rry", "ryl", "rth"};
+    private static String[] dConsStarts = {"Sl", "Bl", "Ch", "St", "Br", "Tr", "Pl", "Cr", "Cl", "Sk", "Th"};
+    private static String[] tConsStarts = {"Chr", "Thr", "Chl"};
 
     public static String toProperNounFormat(String text) {
 
@@ -41,7 +41,7 @@ public class NameGenerator {
         return result.toString();
     }
 
-    public String generateName(int nameLength) {
+    public static String generateName(int nameLength) {
 
         Random random = new Random();
 
@@ -57,26 +57,26 @@ public class NameGenerator {
 
         if (randomStart == 0 && tripleStart <= 15 && nameLength > 2) {
 
-            name.append(tConsStarts[random.nextInt(1)]);
+            name.append(tConsStarts[random.nextInt(tConsStarts.length)]);
             nameLength -= 3;
             conNext = false;
 
         } else if (randomStart == 0 && doubleStart <= 15 && nameLength > 1) {
 
-            name.append(dConsStarts[random.nextInt(11)]);
+            name.append(dConsStarts[random.nextInt(dConsStarts.length)]);
             nameLength -= 2;
             conNext = false;
 
         } else if (randomStart == 0) {
 
-            name.append(cons[random.nextInt(21)]);
+            name.append(cons[random.nextInt(cons.length)]);
             nameLength--;
             conNext = false;
             name = new StringBuilder(name.toString().toUpperCase());
 
         } else {
 
-            name.append(vows[random.nextInt(5)]);
+            name.append(vows[random.nextInt(vows.length)]);
             nameLength--;
             name = new StringBuilder(name.toString().toUpperCase());
         }
@@ -90,24 +90,24 @@ public class NameGenerator {
 
                 if (conNext) {
 
-                    name.append(cons[random.nextInt(21)]);
+                    name.append(cons[random.nextInt(cons.length)]);
                     conNext = false;
 
                 } else {
 
-                    name.append(vows[random.nextInt(5)]);
+                    name.append(vows[random.nextInt(vows.length)]);
                     conNext = true;
                 }
 
             } else if (nameLength - i > 3 && tripleChance < 10 && conNext) {
 
-                name.append(tCons[random.nextInt(1)]);
+                name.append(tCons[random.nextInt(tCons.length)]);
                 conNext = false;
                 i += 2;
 
             } else if (nameLength - i == 3 && tripleChance < 10 && conNext) {
 
-                name.append(tConsEnds[random.nextInt(3)]);
+                name.append(tConsEnds[random.nextInt(tConsEnds.length)]);
                 conNext = false;
                 i += 2;
 
@@ -115,24 +115,24 @@ public class NameGenerator {
 
                 if (doubleChance < 10 && conNext) {
 
-                    name.append(dCons[random.nextInt(40)]);
+                    name.append(dCons[random.nextInt(dCons.length)]);
                     conNext = false;
                     i++;
 
                 } else if (doubleChance < 10) {
 
-                    name.append(dVows[random.nextInt(14)]);
+                    name.append(dVows[random.nextInt(dVows.length)]);
                     conNext = true;
                     i++;
 
                 } else if (conNext) {
 
-                    name.append(cons[random.nextInt(21)]);
+                    name.append(cons[random.nextInt(cons.length)]);
                     conNext = false;
 
                 } else {
 
-                    name.append(vows[random.nextInt(5)]);
+                    name.append(vows[random.nextInt(vows.length)]);
                     conNext = true;
                 }
             }
@@ -140,13 +140,13 @@ public class NameGenerator {
         return name.toString();
     }
 
-    public String generateName() {
+    public static String generateName() {
 
         Random rand = new Random();
-        return this.generateName(rand.nextInt(3, 9));
+        return generateName(rand.nextInt(3, 9));
     }
 
-    public void generateGivenName(String name) {
+    public static void generateGivenName(String name) {
 
             int attempts = 0;
             name = toProperNounFormat(name);
@@ -164,7 +164,7 @@ public class NameGenerator {
             System.out.println("Took " + attempts + " attempts");
     }
 
-    public void generateMultiple(int nameAmount, int nameLength) {
+    public static void generateMultiple(int nameAmount, int nameLength) {
 
         for (int i = 0; i < nameAmount; i++) {
 
@@ -173,7 +173,7 @@ public class NameGenerator {
 
     }
 
-    public String genNameChosenLetter(String letter) {
+    public static String genNameChosenLetter(String letter) {
 
         Random rand = new Random();
         String name = generateName(rand.nextInt(3, 8));
@@ -210,7 +210,7 @@ public class NameGenerator {
 
     }
 
-    public void genUniqueNames(int nameLength) {
+    public static void genUniqueNames(int nameLength) {
 
         HashSet<String> uniqueNames = new HashSet<>();
         String name;
