@@ -1,16 +1,16 @@
 import java.util.HashSet;
 import java.util.Random;
 
-public class Name {
+public class NameGenerator {
 
     private final String[] cons = {"b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"};
     private final String[] vows = {"a", "e", "i", "o", "u"};
     private final String[] dCons = {"ck", "bb", "th", "cc", "dd", "ss", "tt", "ll", "rr", "dr", "st", "nd", "gg", "ph", "br", "mb", "ch",
-            "pt", "bs", "rv", "pr", "sp", "mp", "ct", "nn", "pp", "cl", "ny", "sh", "nt", "rl", "yl", "sk", "mp", "xy", "cy", "sm", "rs", "rg", "rt"};
-    private final String[] dVows = {"ea", "ae", "ei", "ou", "ee", "oi", "ia", "ai", "oo", "ie", "io", "au", "ue"};
+            "pt", "bs", "rv", "pr", "sp", "mp", "ct", "nn", "pp", "cl", "ny", "sh", "nt", "rl", "yl", "sk", "xy", "cy", "sm", "rs", "rg", "rt", "sl"};
+    private final String[] dVows = {"ea", "ae", "ei", "ou", "ee", "oi", "ia", "ai", "oo", "ie", "io", "au", "ue", "oa"};
     private final String[] tCons = {"ndr"};
     private final String[] tConsEnds = {"rry", "ryl", "rth"};
-    private final String[] dConsStarts = {"Sl", "Bl", "Ch", "St", "Br", "Tr", "Pl", "Cr", "Cl", "Sk"};
+    private final String[] dConsStarts = {"Sl", "Bl", "Ch", "St", "Br", "Tr", "Pl", "Cr", "Cl", "Sk", "Th"};
     private final String[] tConsStarts = {"Chr", "Thr", "Chl"};
 
     public static String toProperNounFormat(String text) {
@@ -63,7 +63,7 @@ public class Name {
 
         } else if (randomStart == 0 && doubleStart <= 15 && nameLength > 1) {
 
-            name.append(dConsStarts[random.nextInt(10)]);
+            name.append(dConsStarts[random.nextInt(11)]);
             nameLength -= 2;
             conNext = false;
 
@@ -121,7 +121,7 @@ public class Name {
 
                 } else if (doubleChance < 10) {
 
-                    name.append(dVows[random.nextInt(13)]);
+                    name.append(dVows[random.nextInt(14)]);
                     conNext = true;
                     i++;
 
@@ -215,13 +215,13 @@ public class Name {
         HashSet<String> uniqueNames = new HashSet<>();
         String name;
 
-        for (int i = 0; i < 10000000; i++) {
+        for (int i = 0; i < 1000000; i++) {
 
             name = generateName(nameLength);
             System.out.println(name);
             uniqueNames.add(name);
         }
-        System.out.println("Unique Names in 10 Million: " + uniqueNames.size());
+        System.out.println("Unique Names in 1 Million: " + uniqueNames.size());
         uniqueNames.clear();
     }
 
